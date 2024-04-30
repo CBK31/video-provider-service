@@ -6,4 +6,8 @@ async function bootstrap() {
   await app.listen(3000);
 }
 // tester tester
+async function bootstqarap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+}
 bootstrap();
