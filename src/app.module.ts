@@ -1,16 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { VideoModule } from './video/video.module';
+import { CommentModule } from './comment/comment.module';
+import { RatingModule } from './rating/rating.module';
+
 import config from './config/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [config],
     }),
+    VideoModule,
+    CommentModule,
+    RatingModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, ConfigService], // Ensure ConfigService is provided here if it's custom
+  controllers: [],
+  providers: [ConfigService],
 })
 export class AppModule {}
