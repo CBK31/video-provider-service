@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, PipelineStage } from 'mongoose';
-import { Video, videoDocument, videoModel } from './schemas/video.schema';
-import {} from './exceptions/exceptions';
+import mongoose, { Model, PipelineStage } from 'mongoose';
+import { Video, videoDocument } from './schemas/video.schema';
+import { videoNotFound } from './exceptions/exceptions';
 import { GetAllVideosDto } from './dto/video.dto';
-
-type VideoField =
-  | '_id'
-  | 'title'
-  | 'description'
-  | 'url'
-  | 'duration'
-  | 'ageRestriction'
-  | 'averageRating';
+import { MongoIdDto } from '../shared/dto/MongoId.dto';
+// type VideoField =
+//   | '_id'
+//   | 'title'
+//   | 'description'
+//   | 'url'
+//   | 'duration'
+//   | 'ageRestriction'
+//   | 'averageRating';
 
 @Injectable()
 export class VideoService {
@@ -32,6 +32,19 @@ export class VideoService {
   //   async getAllAvailableVideos() {
   //     return this.findAllVideosWithoutOneField('url');
   //   }
+
+  async findVideoById(id: mongoose.Schema.Types.ObjectId) {
+    return this.videoModel.findById(id);
+  }
+
+  async getVideoUrl(param: MongoIdDto) {
+    // console.log('3am bousal 3al conroller :' + videoId);
+    const videoUrl = (await this.findVideoById(param.id)).url;
+    if (!videoUrl) {
+      throw new videoNotFound();
+    }
+    return videoUrl;
+  }
 
   async GetAllAvailableVideos(
     query: GetAllVideosDto,
@@ -57,11 +70,6 @@ export class VideoService {
         _id: 0,
         __v: 0,
         url: 0,
-        title: 1,
-        description: 1,
-        duration: 1,
-        ageRestriction: 1,
-        averageRating: 1,
       },
     });
 

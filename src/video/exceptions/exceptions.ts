@@ -2,7 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class videoNotFound extends HttpException {
   constructor() {
-    super('video id not found', 444);
+    super('video not found', 444);
   }
 }
 

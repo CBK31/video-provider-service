@@ -6,21 +6,25 @@ import {
   IsNumber,
   IsString,
   MinLength,
-  IsMongoId,
   IsOptional,
 } from 'class-validator';
+import { IsMongoId } from 'class-validator';
 
-export class VideoIdDto {
+//
+export class MongoIdDto {
   @IsMongoId()
-  userId: string;
+  id: string;
 }
-
+enum booleanEnum {
+  true = 'true',
+  false = 'false',
+}
 export class GetAllVideosDto {
   @IsOptional()
   @IsString()
   title?: string;
 
   @IsOptional()
-  @IsBoolean()
+  @IsEnum(booleanEnum)
   isSortByRating?: boolean;
 }
