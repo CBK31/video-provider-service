@@ -26,17 +26,6 @@ export class CommentService {
   }
 
   async addComment(body: addCommentDto, videoInfo: MongoIdDto, userId) {
-    // const video = await this.videoService.findVideoById(param.id);
-    // if (!video) {
-    //   throw new videoNotFound();
-    // }
-
-    // const text = body.text;
-    // const comment = new this.commentModel({
-    //   videoId: param.id,
-    //   userId: userId,
-    //   commentBody: text,
-    // }).save();
     await this.addCommentUtil(body, videoInfo, userId);
     return { statusCode: 201, message: 'Comment successfully added.' };
   }
