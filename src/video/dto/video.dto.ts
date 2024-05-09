@@ -1,16 +1,6 @@
-import {
-  IsBoolean,
-  IsEmail,
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  MinLength,
-  IsOptional,
-} from 'class-validator';
+import { IsEnum, IsString, IsOptional } from 'class-validator';
 import { IsMongoId } from 'class-validator';
 
-//
 export class MongoIdDto {
   @IsMongoId()
   readonly id: string;

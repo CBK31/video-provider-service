@@ -1,6 +1,5 @@
 import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { RatingService } from './rating.service';
-import { VideoService } from 'src/video/video.service';
 import { AuthenticationGuard } from 'src/shared/guards/authentication.guard';
 import { GetUserId } from 'src/shared/decorators/getUserId.decorators';
 import { ObjectId } from 'mongoose';

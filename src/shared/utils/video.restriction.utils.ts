@@ -8,14 +8,10 @@ export async function isAgeRestricted(ageRestriction, userAge) {
     PG18: 18,
   };
 
-  // If the restriction is not recognized, allow by default (return true)
   const requiredAge = restrictionMap[ageRestriction];
   if (requiredAge === undefined) {
     throw new Error(`Invalid age restriction: ${ageRestriction}`);
   }
 
-  // Return true if the user's age meets or exceeds the required age (not restricted)
   return userAge <= requiredAge;
-
-  //   return age;
 }

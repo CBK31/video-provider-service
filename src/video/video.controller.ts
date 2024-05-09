@@ -1,6 +1,5 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { VideoService } from './video.service';
-import { GetUserId } from 'src/shared/decorators/getUserId.decorators';
 import { GetUserDob } from 'src/shared/decorators/getUserDob.decorators';
 import { GetAllVideosDto } from './dto/video.dto';
 import { AuthenticationGuard } from 'src/shared/guards/authentication.guard';

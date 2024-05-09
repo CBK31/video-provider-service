@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { VideoService } from 'src/video/video.service';
 import { Rating } from './schemas/rating.schema';
 import { videoNotFound } from 'src/video/exceptions/exceptions';
@@ -14,9 +14,6 @@ export class RatingService {
   ) {}
 
   async addRating(rating, videoId, userId) {
-    console.log(
-      JSON.stringify(rating) + '  ' + JSON.stringify(videoId) + '  ' + userId,
-    );
     const video = await this.videoService.findVideoById(videoId);
 
     if (!video) throw new videoNotFound();
@@ -55,6 +52,6 @@ export class RatingService {
 
     const oo = await this.videoService.updateVideoRating(videoId, newAverage);
 
-    return oo;
+    return { statusCode: 200, message: 'Rating successfully added' };
   }
 }

@@ -5,7 +5,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
   UseGuards,
 } from '@nestjs/common';
 import { GetUserId } from 'src/shared/decorators/getUserId.decorators';

@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { MongoIdDto } from '../shared/dto/MongoId.dto';
-import { calculateUserAge } from 'src/shared/utils/user.age.utils';
-import { isAgeRestricted } from 'src/shared/utils/video.restriction.utils';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { addCommentDto } from './dto/create.comment.dto';
@@ -11,7 +9,6 @@ import {
   videoNotFound,
 } from 'src/video/exceptions/exceptions';
 import { Comment } from './schemas/comment.schema';
-import { Z_UNKNOWN } from 'zlib';
 
 @Injectable()
 export class CommentService {
@@ -68,7 +65,7 @@ export class CommentService {
       },
     );
 
-    return { statusCode: 201, message: 'Reply comment successfully added.' };
+    return { statusCode: 201, message: 'Reply successfully added.' };
   }
 
   async addCommentUtil(body: addCommentDto, videoInfo: MongoIdDto, userId) {
