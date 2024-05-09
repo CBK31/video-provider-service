@@ -27,4 +27,4 @@ export class Video {
 
 export type videoDocument = HydratedDocument<Video>;
 export const videoModel = SchemaFactory.createForClass(Video);
-videoModel.index({ ageRestriction: 1, url: 1 });
+videoModel.index({ ageRestriction: 1 });

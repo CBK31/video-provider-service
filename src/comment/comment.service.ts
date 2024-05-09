@@ -52,8 +52,8 @@ export class CommentService {
   async replyComment(body: addCommentDto, commentId, userId) {
     const comment = await this.findCommentById(commentId);
     if (!comment) throw new CommentNotFound();
-    const videoInfo: any = { id: comment.videoId };
-    const newComment = await this.addCommentUtil(body, videoInfo, userId);
+    // const videoInfo: any = { id: comment.videoId };
+    const newComment = await this.addCommentUtil(body, comment.videoId, userId);
 
     await this.commentModel.findOneAndUpdate(
       {

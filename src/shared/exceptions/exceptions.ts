@@ -8,6 +8,6 @@ export class unAuthenticateException extends HttpException {
 
 export class MissingGuardException extends HttpException {
   constructor() {
-    super('Guard not working and the Id is passed thrue the guard', 401);
+    super('Action requires guard to be enabled', 403);
   }
 }

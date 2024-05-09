@@ -3,6 +3,7 @@ import { RatingService } from './rating.service';
 import { AuthenticationGuard } from 'src/shared/guards/authentication.guard';
 import { GetUserId } from 'src/shared/decorators/getUserId.decorators';
 import { ObjectId } from 'mongoose';
+import { MongoIdDto, RatingDto } from './dto/rating.dto';
 
 @Controller('video-provider')
 export class RatingController {
@@ -11,10 +12,10 @@ export class RatingController {
   @Post('addrating/:id')
   @UseGuards(AuthenticationGuard)
   async addRating(
-    @Body() body: any,
-    @Param('id') videoId: ObjectId,
+    @Body() { rating }: RatingDto,
+    @Param() { id }: MongoIdDto,
     @GetUserId() userId,
   ) {
-    return this.ratingService.addRating(body.rating, videoId, userId);
+    return this.ratingService.addRating(rating, id, userId);
   }
 }

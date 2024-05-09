@@ -24,14 +24,11 @@ export class VideoService {
       {
         $set: { averageRating: rating },
       },
-      {
-        new: true,
-      },
     );
   }
   async getVideoUrl(videoId, userDob) {
     const video = await this.findVideoById(videoId);
-    if (!video.url) {
+    if (!video || !video.url) {
       throw new videoNotFound();
     }
     const userAge = await calculateUserAge(userDob);

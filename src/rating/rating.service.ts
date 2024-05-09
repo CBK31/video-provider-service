@@ -50,7 +50,7 @@ export class RatingService {
 
     const newAverage = JSON.stringify(average[0]['averageRating']);
 
-    const oo = await this.videoService.updateVideoRating(videoId, newAverage);
+    await this.videoService.updateVideoRating(videoId, newAverage);
 
     return { statusCode: 200, message: 'Rating successfully added' };
   }
