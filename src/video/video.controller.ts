@@ -17,6 +17,7 @@ import { GetAllVideosDto } from './dto/video.dto';
 import { AuthenticationGuard } from 'src/shared/guards/authentication.guard';
 import { videoNotFound } from './exceptions/exceptions';
 import { MongoIdDto } from '../shared/dto/MongoId.dto';
+
 @Controller('video')
 export class VideoController {
   constructor(private readonly videoService: VideoService) {}
@@ -26,8 +27,9 @@ export class VideoController {
     return await this.videoService.GetAllAvailableVideos(query);
   }
 
+  @UseGuards(AuthenticationGuard)
   @Get('play/:id')
-  async getVideoUrl(@Param() param: MongoIdDto) {
-    return await this.videoService.getVideoUrl(param);
+  async getVideoUrl(@Param() param: MongoIdDto, @GetUserDob() userDob) {
+    return await this.videoService.getVideoUrl(param, userDob);
   }
 }

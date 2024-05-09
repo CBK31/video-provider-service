@@ -6,8 +6,8 @@ export class videoNotFound extends HttpException {
   }
 }
 
-// export class fetchingVideoIdError extends HttpException {
-//   constructor() {
-//     super('error while fetching videos Id ', 401);
-//   }
-// }
+export class userRestrected extends HttpException {
+  constructor() {
+    super('user age restriction', 401);
+  }
+}

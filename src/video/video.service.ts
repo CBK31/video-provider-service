@@ -2,48 +2,37 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model, PipelineStage } from 'mongoose';
 import { Video, videoDocument } from './schemas/video.schema';
-import { videoNotFound } from './exceptions/exceptions';
+import { userRestrected, videoNotFound } from './exceptions/exceptions';
 import { GetAllVideosDto } from './dto/video.dto';
 import { MongoIdDto } from '../shared/dto/MongoId.dto';
+import { calculateUserAge } from 'src/shared/utils/user.age.utils';
+import { isAgeRestricted } from 'src/shared/utils/video.restriction.utils';
 // type VideoField =
 //   | '_id'
 //   | 'title'
 //   | 'description'
 //   | 'url'
 //   | 'duration'
-//   | 'ageRestriction'
-//   | 'averageRating';
 
 @Injectable()
 export class VideoService {
   constructor(@InjectModel(Video.name) private videoModel: Model<Video>) {}
 
-  //   async findAllVideosWithoutOneField(field: VideoField) {
-  //     const projection = { [field]: 0 };
-  //     return await this.videoModel
-  //       .aggregate([
-  //         {
-  //           $project: projection,
-  //         },
-  //       ])
-  //       .exec();
-  //   }
-
-  //   async getAllAvailableVideos() {
-  //     return this.findAllVideosWithoutOneField('url');
-  //   }
-
   async findVideoById(id: mongoose.Schema.Types.ObjectId) {
     return this.videoModel.findById(id);
   }
 
-  async getVideoUrl(param: MongoIdDto) {
-    // console.log('3am bousal 3al conroller :' + videoId);
-    const videoUrl = (await this.findVideoById(param.id)).url;
-    if (!videoUrl) {
+  async getVideoUrl(param: MongoIdDto, userDob) {
+    const video = await this.findVideoById(param.id);
+    if (!video.url) {
       throw new videoNotFound();
     }
-    return videoUrl;
+    const userAge = await calculateUserAge(userDob);
+    const isRestricted = await isAgeRestricted(video.ageRestriction, userAge);
+    if (isRestricted) {
+      throw new userRestrected();
+    }
+    return video.url;
   }
 
   async GetAllAvailableVideos(

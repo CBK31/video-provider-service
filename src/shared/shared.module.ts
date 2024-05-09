@@ -22,14 +22,14 @@ import { Video, videoModel } from '../video/schemas/video.schema';
   exports: [
     AuthenticationGuard,
     ConfigModule,
-    // JwtModule.registerAsync({
-    //   imports: [ConfigModule],
-    //   inject: [ConfigService],
-    //   useFactory: (configService: ConfigService) => ({
-    //     secret: configService.get<string>('secret.JWTsecretKey'),
-    //     signOptions: { expiresIn: '60s' },
-    //   }),
-    // }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('secret.JWTsecretKey'),
+        signOptions: { expiresIn: '60s' },
+      }),
+    }),
     MongooseModule.forFeature([{ name: Video.name, schema: videoModel }]),
   ],
 })
