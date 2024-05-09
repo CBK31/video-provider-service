@@ -16,6 +16,19 @@ export class VideoService {
     return this.videoModel.findById(id);
   }
 
+  async updateVideoRating(videoId, rating) {
+    return this.videoModel.findOneAndUpdate(
+      {
+        _id: videoId,
+      },
+      {
+        $set: { averageRating: rating },
+      },
+      {
+        new: true,
+      },
+    );
+  }
   async getVideoUrl(param: MongoIdDto, userDob) {
     const video = await this.findVideoById(param.id);
     if (!video.url) {
