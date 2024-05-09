@@ -8,6 +8,6 @@ export class videoNotFound extends HttpException {
 
 export class userRestrected extends HttpException {
   constructor() {
-    super('user age restriction', 401);
+    super('user age restriction', 444);
   }
 }

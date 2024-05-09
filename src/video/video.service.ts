@@ -32,7 +32,7 @@ export class VideoService {
     if (isRestricted) {
       throw new userRestrected();
     }
-    return video.url;
+    return { url: video.url };
   }
 
   async GetAllAvailableVideos(
