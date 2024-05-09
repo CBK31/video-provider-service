@@ -16,7 +16,7 @@ export class VideoController {
 
   @UseGuards(AuthenticationGuard)
   @Get('play/:id')
-  async getVideoUrl(@Param() param: MongoIdDto, @GetUserDob() userDob) {
-    return await this.videoService.getVideoUrl(param, userDob);
+  async getVideoUrl(@Param() { id }: MongoIdDto, @GetUserDob() userDob) {
+    return await this.videoService.getVideoUrl(id, userDob);
   }
 }

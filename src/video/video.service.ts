@@ -29,8 +29,8 @@ export class VideoService {
       },
     );
   }
-  async getVideoUrl(param: MongoIdDto, userDob) {
-    const video = await this.findVideoById(param.id);
+  async getVideoUrl(videoId, userDob) {
+    const video = await this.findVideoById(videoId);
     if (!video.url) {
       throw new videoNotFound();
     }

@@ -22,35 +22,35 @@ export class CommentController {
   @UseGuards(AuthenticationGuard)
   async addComment(
     @Body() body: addCommentDto,
-    @Param() param: MongoIdDto,
+    @Param() { id }: MongoIdDto,
     @GetUserId() userId,
   ) {
-    return this.commentService.addComment(body, param, userId);
+    return this.commentService.addComment(body, id, userId);
   }
 
   @Put('updatecomment/:id')
   @UseGuards(AuthenticationGuard)
   async updateComment(
     @Body() body: addCommentDto,
-    @Param() param: MongoIdDto,
+    @Param() { id }: MongoIdDto,
     @GetUserId() userId,
   ) {
-    return this.commentService.updateComment(body, param, userId);
+    return this.commentService.updateComment(body, id, userId);
   }
 
   @Post('replycomment/:id')
   @UseGuards(AuthenticationGuard)
   async replyComment(
     @Body() body: addCommentDto,
-    @Param() param: MongoIdDto,
+    @Param() { id }: MongoIdDto,
     @GetUserId() userId,
   ) {
-    return this.commentService.replyComment(body, param, userId);
+    return this.commentService.replyComment(body, id, userId);
   }
 
   @Get('getallcomments/:id')
   @UseGuards(AuthenticationGuard)
-  async getCommentsWithReplies(@Param() param: MongoIdDto) {
-    return this.commentService.getCommentsWithReplies(param);
+  async getCommentsWithReplies(@Param() { id }: MongoIdDto) {
+    return this.commentService.getCommentsWithReplies(id);
   }
 }

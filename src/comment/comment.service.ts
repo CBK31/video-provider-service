@@ -18,20 +18,20 @@ export class CommentService {
     @InjectModel(Comment.name) private commentModel: Model<Comment>,
   ) {}
 
-  async findCommentById(id: mongoose.Schema.Types.ObjectId) {
+  async findCommentById(id) {
     return this.commentModel.findById(id);
   }
 
-  async addComment(body: addCommentDto, videoInfo: MongoIdDto, userId) {
-    await this.addCommentUtil(body, videoInfo, userId);
+  async addComment(body: addCommentDto, videoId, userId) {
+    await this.addCommentUtil(body, videoId, userId);
     return { statusCode: 201, message: 'Comment successfully added.' };
   }
 
-  async updateComment(body: addCommentDto, commentInfo: MongoIdDto, userId) {
+  async updateComment(body: addCommentDto, commentId, userId) {
     const text = body.text;
     const updatedComment = await this.commentModel.findOneAndUpdate(
       {
-        _id: commentInfo.id,
+        _id: commentId,
         userId: userId,
       },
       {
@@ -49,8 +49,8 @@ export class CommentService {
     return { statusCode: 200, message: 'Comment successfully updated' };
   }
 
-  async replyComment(body: addCommentDto, commentInfo: MongoIdDto, userId) {
-    const comment = await this.findCommentById(commentInfo.id);
+  async replyComment(body: addCommentDto, commentId, userId) {
+    const comment = await this.findCommentById(commentId);
     if (!comment) throw new CommentNotFound();
     const videoInfo: any = { id: comment.videoId };
     const newComment = await this.addCommentUtil(body, videoInfo, userId);
@@ -68,15 +68,15 @@ export class CommentService {
     return { statusCode: 201, message: 'Reply successfully added.' };
   }
 
-  async addCommentUtil(body: addCommentDto, videoInfo: MongoIdDto, userId) {
-    const video = await this.videoService.findVideoById(videoInfo.id);
+  async addCommentUtil(body: addCommentDto, videoId, userId) {
+    const video = await this.videoService.findVideoById(videoId);
     if (!video) {
       throw new videoNotFound();
     }
 
     const text = body.text;
     const comment = await new this.commentModel({
-      videoId: videoInfo.id,
+      videoId: videoId,
       userId: userId,
       commentBody: text,
     }).save();
@@ -84,11 +84,11 @@ export class CommentService {
     return comment;
   }
 
-  async getCommentsWithReplies(videoInfo: MongoIdDto): Promise<any[]> {
+  async getCommentsWithReplies(videoId): Promise<any[]> {
     return this.commentModel
       .aggregate([
         {
-          $match: { videoId: videoInfo.id },
+          $match: { videoId: videoId },
         },
         {
           $lookup: {
