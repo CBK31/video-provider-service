@@ -9,13 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { GetUserId } from 'src/shared/decorators/getUserId.decorators';
-import { GetUserDob } from 'src/shared/decorators/getUserDob.decorators';
 import { AuthenticationGuard } from 'src/shared/guards/authentication.guard';
-import { MongoIdDto, replyCommentDto } from '../shared/dto/MongoId.dto';
+import { MongoIdDto } from '../shared/dto/MongoId.dto';
 
 import { CommentService } from './comment.service';
 import { addCommentDto } from './dto/create.comment.dto';
-import { get } from 'http';
 
 @Controller('video-provider')
 export class CommentController {
@@ -53,10 +51,7 @@ export class CommentController {
 
   @Get('getallcomments/:id')
   @UseGuards(AuthenticationGuard)
-  async getCommentsWithReplies(
-    @Param() param: MongoIdDto,
-    @GetUserId() userId,
-  ) {
+  async getCommentsWithReplies(@Param() param: MongoIdDto) {
     return this.commentService.getCommentsWithReplies(param);
   }
 }
