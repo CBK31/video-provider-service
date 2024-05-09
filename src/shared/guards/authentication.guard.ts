@@ -14,17 +14,12 @@ export class AuthenticationGuard implements CanActivate {
         throw new unAuthenticateException();
       } else {
         const payload = this.jwtService.verify(token);
-        console.log(
-          'PAYLOADDD from authentication Guard  :  ' + JSON.stringify(payload),
-        );
         if (!payload || !payload['_id'] || !payload['dob']) {
           throw new unAuthenticateException();
         }
-
         requestInfo.user = payload;
       }
     } catch (error) {
-      //  console.log(error);
       throw new unAuthenticateException();
     }
     return true;

@@ -2,12 +2,17 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class videoNotFound extends HttpException {
   constructor() {
-    super('video not found', 444);
+    super('Video not found', 444);
   }
 }
 
 export class userRestrected extends HttpException {
   constructor() {
-    super('user age restriction', 444);
+    super('User age restriction', 444);
+  }
+}
+export class CommentNotFound extends HttpException {
+  constructor() {
+    super('Comment not found', 444);
   }
 }

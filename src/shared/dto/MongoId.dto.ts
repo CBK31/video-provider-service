@@ -6,3 +6,9 @@ export class MongoIdDto {
   @IsNotEmpty()
   id: Schema.Types.ObjectId;
 }
+
+export class replyCommentDto extends MongoIdDto {
+  @IsMongoId()
+  @IsNotEmpty()
+  commentId: Schema.Types.ObjectId;
+}

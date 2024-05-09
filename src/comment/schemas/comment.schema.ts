@@ -17,5 +17,4 @@ export class Comment {
 }
 export type commentDocument = HydratedDocument<Comment>;
 export const commentModel = SchemaFactory.createForClass(Comment);
-commentModel.index({ videoId: 1 });
-// commentModel.index({ userId: 1 });
+commentModel.index({ videoId: 1, userId: 1 });

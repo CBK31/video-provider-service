@@ -7,12 +7,6 @@ import { GetAllVideosDto } from './dto/video.dto';
 import { MongoIdDto } from '../shared/dto/MongoId.dto';
 import { calculateUserAge } from 'src/shared/utils/user.age.utils';
 import { isAgeRestricted } from 'src/shared/utils/video.restriction.utils';
-// type VideoField =
-//   | '_id'
-//   | 'title'
-//   | 'description'
-//   | 'url'
-//   | 'duration'
 
 @Injectable()
 export class VideoService {
